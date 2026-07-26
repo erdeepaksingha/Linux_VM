@@ -117,24 +117,24 @@ vms = {
     sku                  = "server"
     version              = "latest"
   }
-  vm3 = {
-      name                 = "databasevm"
-      nic_name             = "database-nic"
-      location             = "westus"
-      resource_group_name  = "database_rg"
-      virtual_network_name = "database_vnet"
-      subnet_name          = "database_subnet"
-      pip_name             = "database-pip"
-      size                 = "Standard_D2s_V3"
-      admin_username       = "devopsadmin"
-      auth                 = false
-      caching              = "ReadWrite"
-      storage_account_type = "Standard_LRS"
-      publisher            = "Canonical"
-      offer                = "ubuntu-24_04-lts"
-      sku                  = "server"
-      version              = "latest"
-    }
+  # vm3 = {
+  #     name                 = "databasevm"
+  #     nic_name             = "database-nic"
+  #     location             = "westus"
+  #     resource_group_name  = "database_rg"
+  #     virtual_network_name = "database_vnet"
+  #     subnet_name          = "database_subnet"
+  #     pip_name             = "database-pip"
+  #     size                 = "Standard_D2s_V3"
+  #     admin_username       = "devopsadmin"
+  #     auth                 = false
+  #     caching              = "ReadWrite"
+  #     storage_account_type = "Standard_LRS"
+  #     publisher            = "Canonical"
+  #     offer                = "ubuntu-24_04-lts"
+  #     sku                  = "server"
+  #     version              = "latest"
+  #   }
 }
 vaults = {
   vault1 = {
