@@ -33,43 +33,34 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Debug Secrets
-      run: |
-        echo "CLIENT_ID_PRESENT=${{ secrets.ARM_CLIENT_ID != '' }}"
-        echo "TENANT_ID_PRESENT=${{ secrets.ARM_TENANT_ID != '' }}"
-        echo "SUBSCRIPTION_ID_PRESENT=${{ secrets.ARM_SUBSCRIPTION_ID != '' }}"
-        echo "CLIENT_SECRET_PRESENT=${{ secrets.ARM_CLIENT_SECRET != '' }}"
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-        - name: Azure Login
-          uses: azure/login@v2
-          with:
-            client-id: ${{ secrets.AZURE_CLIENT_ID }}
-            tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-            subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Terraform Init
+        run: terraform init
 
-          - name: Terraform Init
-            run: terraform init
-    
-          - name: Terraform Format
-            run: terraform fmt -check -recursive
-    
-          - name: Terraform Validate
-            run: terraform validate
-    
-          - name: Run TFLint
-            run: tflint
-    
-          - name: Run tfsec
-            uses: aquasecurity/tfsec-action@v1.0.3
-    
-          - name: Run Gitleaks
-            uses: gitleaks/gitleaks-action@v2
-    
-          - name: Run Infracost
-            run: infracost breakdown --path .
-    
-          - name: Terraform Plan
-            run: terraform plan -out=tfplan
+      - name: Terraform Format
+        run: terraform fmt -check -recursive
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Run TFLint
+        run: tflint
+
+      - name: Run tfsec
+        uses: aquasecurity/tfsec-action@v1.0.3
+
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+
+      - name: Run Infracost
+        run: infracost breakdown --path .
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
 
 #########################################################
 # CD JOB
@@ -89,22 +80,15 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Debug Secrets
-      run: |
-        echo "CLIENT_ID_PRESENT=${{ secrets.ARM_CLIENT_ID != '' }}"
-        echo "TENANT_ID_PRESENT=${{ secrets.ARM_TENANT_ID != '' }}"
-        echo "SUBSCRIPTION_ID_PRESENT=${{ secrets.ARM_SUBSCRIPTION_ID != '' }}"
-        echo "CLIENT_SECRET_PRESENT=${{ secrets.ARM_CLIENT_SECRET != '' }}"
+
         
-        - name: Azure Login
-          uses: azure/login@v2
-          with:
-            client-id: ${{ secrets.AZURE_CLIENT_ID }}
-            tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-            subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  
-        - name: Terraform Init
-          run: terraform init
-  
-        - name: Terraform Apply
-          run: terraform apply -auto-approve
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
