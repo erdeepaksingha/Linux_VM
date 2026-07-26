@@ -22,7 +22,7 @@ module "public_ip" {
 }
 
 module "linux_vm" {
-  depends_on = [module.resource_group, module.public_ip, module.Virtual_network, module.subnets]
+  depends_on = [module.resource_group, module.public_ip, module.Virtual_network, module.subnets, module.keyvault]
   source     = "../../Modules/Linux_Virtual_Machine"
   vms        = var.vms
   pips       = var.pips
