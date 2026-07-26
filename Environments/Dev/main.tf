@@ -16,6 +16,7 @@ module "subnets" {
 }
 
 module "public_ip" {
+  depends_on = [module.resource_group, module.subnets]
   source = "../../Modules/Public_IP"
   pips   = var.pips
 }
