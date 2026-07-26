@@ -1,3 +1,4 @@
+#Resource_Groups
 rgnames = {
   rg1 = {
     name     = "frontend_rg"
@@ -12,7 +13,7 @@ rgnames = {
     location = "westus"
   }
 }
-
+# VirtualNetwork
 vnets = {
   vnet1 = {
     name                = "frontend_vnet"
@@ -33,7 +34,7 @@ vnets = {
     address_space       = ["10.3.0.0/16"]
   }
 }
-
+#Subnets
 snets = {
   subnet1 = {
     name                 = "frontend_subnet"
@@ -54,6 +55,8 @@ snets = {
     address_prefixes     = ["10.3.0.0/24"]
   }
 }
+
+#Public IPs
 pips = {
   public_ip1 = {
     name                = "frontend-pip"
@@ -75,6 +78,7 @@ pips = {
   }
 }
 
+#Virtual Machines
 vms = {
   vm1 = {
     name                 = "frontendvm"
